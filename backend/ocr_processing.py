@@ -3,6 +3,8 @@ import pytesseract
 import cv2
 import numpy as np
 import re
+import subprocess
+from datetime import datetime
 
 def read_config_file(file_path):
     with open(file_path, 'r') as config_file:
@@ -67,7 +69,13 @@ def determine_psm(ocr_text):
 
 
 def process_image(image_path, output_folder):
-    config_file_path = os.path.join('backend', 'config', 'tesseract_config.txt')
+    # Get the directory of the current script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Construct the path to the config file
+    config_file_path = os.path.join(script_dir, 'config', 'tesseract_config.txt')
+    
+    # Read the config file
     ocr_config = read_config_file(config_file_path)
     
     image = cv2.imread(image_path)
@@ -94,7 +102,7 @@ def process_image(image_path, output_folder):
         else:
             print("Text is neither regular nor in a list or table format. Skipping OCR.")
             return  
-        
+    
     # Apply language and OEM settings to the OCR text
     ocr_text = pytesseract.image_to_string(enhanced_image, config=f"{ocr_config} -l est --oem 3")
 
@@ -107,18 +115,40 @@ def process_image(image_path, output_folder):
     with open(output_path, 'w') as output_file:
         output_file.write(cleaned_text)
     
-    has_lists = is_list(ocr_text)
-    has_tables = is_table(ocr_text)
-    is_regular = is_regular_text(ocr_text)
-    
-    print(f"\tHas Lists: {has_lists}")
-    print(f"\tHas Tables: {has_tables}")
-    print(f"\tIs Regular Text: {is_regular}")
-    print(f"\tPSM Value: {psm}\n")
+    # Prepare the data to be sent to the database connection script via subprocess
+    processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data = {
+        'filename': os.path.basename(image_path),
+        'processing_date': processing_date,  
+        'tesseract_version': pytesseract.get_tesseract_version(),
+        'enhancement_settings': 1 if not is_regular_text(ocr_text) else 0,
+        'page_segmentation': determine_psm(ocr_text),
+        'image_file_path': image_path
+    }
+
+    # Convert data to string for subprocess
+    data_str = ' '.join([f"{key}={value}" for key, value in data.items()])
+
+    # Call the database connection script via subprocess
+    try:
+        print("Data to be sent to the database:", data)  # Add this print statement
+        process = subprocess.run(['php', 'database_connection.php', data_str], capture_output=True, text=True, timeout=10)
+        if process.returncode == 0:
+            if "Connected successfully" in process.stdout:
+                print("Connected to the database.")
+            else:
+                print("Failed to connect to the database.")
+        else:
+            print("Error:", process.stderr)
+    except subprocess.TimeoutExpired:
+        print("Database connection timed out.")
+    except subprocess.CalledProcessError as e:
+        print("Error:", e)
+
 
 if __name__ == "__main__":
-    input_folder = 'images'
-    output_folder = 'ocr_results'
+    input_folder = '../katse'
+    output_folder = '../ocr_results'
 
     # List all files in the input folder and sort them
     image_filenames = sorted(os.listdir(input_folder))
@@ -129,3 +159,4 @@ if __name__ == "__main__":
     # Process images
     for image_path in image_paths:
         process_image(image_path, output_folder)
+
