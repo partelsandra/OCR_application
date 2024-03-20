@@ -69,13 +69,13 @@ def determine_psm(ocr_text):
 
 
 def process_image(image_path, output_folder):
-    # Get the directory of the current script
+    # Directory of the current script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     
-    # Construct the path to the config file
+    # Path to config file
     config_file_path = os.path.join(script_dir, 'config', 'tesseract_config.txt')
     
-    # Read the config file
+    # Read  config file
     ocr_config = read_config_file(config_file_path)
     
     image = cv2.imread(image_path)
@@ -88,7 +88,7 @@ def process_image(image_path, output_folder):
     if is_regular_text(ocr_text):
         print("Regular text detected. Performing OCR without enhancement.")
         psm = "--psm 3"
-        enhanced_image = image  # No enhancement needed for regular text
+        enhanced_image = image  # No enhancement for regular text
     else:
         # Step 3: Enhancement for Non-Regular Text
         print("Non-regular text detected. Enhancing image.")
@@ -103,7 +103,7 @@ def process_image(image_path, output_folder):
             print("Text is neither regular nor in a list or table format. Skipping OCR.")
             return  
     
-    # Apply language and OEM settings to the OCR text
+    # Apply language and OEM 
     ocr_text = pytesseract.image_to_string(enhanced_image, config=f"{ocr_config} -l est --oem 3")
 
     # Step 5: Clean up OCR text
@@ -115,13 +115,14 @@ def process_image(image_path, output_folder):
     with open(output_path, 'w') as output_file:
         output_file.write(cleaned_text)
     
-    # Prepare the data to be sent to the database connection script via subprocess
+    # Prepare data for database connection via subprocess
     processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    enhancement_status = "Yes" if not is_regular_text(ocr_text) else "No"
     data = {
         'filename': os.path.basename(image_path),
         'processing_date': processing_date,  
         'tesseract_version': pytesseract.get_tesseract_version(),
-        'enhancement_settings': 1 if not is_regular_text(ocr_text) else 0,
+        'enhancement_settings': enhancement_status,
         'page_segmentation': determine_psm(ocr_text),
         'image_file_path': image_path
     }
@@ -129,9 +130,9 @@ def process_image(image_path, output_folder):
     # Convert data to string for subprocess
     data_str = ' '.join([f"{key}={value}" for key, value in data.items()])
 
-    # Call the database connection script via subprocess
+    # Call the database connection via subprocess
     try:
-        print("Data to be sent to the database:", data)  # Add this print statement
+        print("Data to be sent to the database:", data)
         process = subprocess.run(['php', 'database_connection.php', data_str], capture_output=True, text=True, timeout=10)
         if process.returncode == 0:
             if "Connected successfully" in process.stdout:
@@ -150,7 +151,7 @@ if __name__ == "__main__":
     input_folder = '../images'
     output_folder = '../ocr_results'
 
-    # List all files in the input folder and sort them
+    # Sort images like Windows (folder structure wise and not by adding date(ubuntu))
     image_filenames = sorted(os.listdir(input_folder))
 
     # Filter image filenames and create image paths
