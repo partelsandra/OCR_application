@@ -147,7 +147,7 @@ def process_image(image_path, output_folder):
 
 
 if __name__ == "__main__":
-    input_folder = '../katse'
+    input_folder = '../images'
     output_folder = '../ocr_results'
 
     # List all files in the input folder and sort them
