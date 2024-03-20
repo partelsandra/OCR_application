@@ -16,8 +16,8 @@ if ($conn->connect_error) {
 echo "Connected successfully\n";
 
 // Handling data sent from Python script
-$data_str = $_SERVER['argv'][1]; // Get the data from command line arguments
-$data_pairs = explode(' ', $data_str); // Split data into key-value pairs
+$data_str = $_SERVER['argv'][1]; 
+$data_pairs = explode(' ', $data_str);
 
 $data = [];
 foreach ($data_pairs as $pair) {
@@ -33,16 +33,12 @@ foreach ($data_pairs as $pair) {
         case 'tesseract_version':
             $data['Tesseract_Version'] = $value;
             break;
-        case 'enhancement_settings':
-            $data['Enhancement_Settings'] = ($value == "Yes") ? 1 : 0;
+            case 'enhancement_settings':
+            $data['Enhancement_Settings'] = $value; 
             break;
             case 'page_segmentation':
-                // If the value doesn't start with '--psm', prepend it
-                if (strpos($value, '--psm') !== 0) {
-                    $value = '--psm ' . $value;
-                }
-                $data['Page_Segmentation'] = $value;
-                break;            
+            $data['Page_Segmentation'] = $value;
+            break;          
         case 'image_file_path':
             $data['Image_File_Path'] = $value;
             break;
