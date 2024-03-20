@@ -34,7 +34,7 @@ foreach ($data_pairs as $pair) {
             $data['Tesseract_Version'] = $value;
             break;
         case 'enhancement_settings':
-            $data['Enhancement_Settings'] = $value;
+            $data['Enhancement_Settings'] = ($value == "Yes") ? 1 : 0;
             break;
         case 'page_segmentation':
             $data['Page_Segmentation'] = $value;
@@ -48,7 +48,7 @@ foreach ($data_pairs as $pair) {
 // Insert data into the database table
 $sql = "INSERT INTO ocr_data (Filename, Processing_Date, Tesseract_Version, Enhancement_Settings, Page_Segmentation, Image_File_Path) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssiis", $data['Filename'], $data['Processing_Date'], $data['Tesseract_Version'], $data['Enhancement_Settings'], $data['Page_Segmentation'], $data['Image_File_Path']);
+$stmt->bind_param("ssssss", $data['Filename'], $data['Processing_Date'], $data['Tesseract_Version'], $data['Enhancement_Settings'], $data['Page_Segmentation'], $data['Image_File_Path']);
 
 if ($stmt->execute()) {
     echo "Data inserted successfully";
@@ -58,5 +58,4 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
-
 

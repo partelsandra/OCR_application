@@ -115,15 +115,17 @@ def process_image(image_path, output_folder):
     with open(output_path, 'w') as output_file:
         output_file.write(cleaned_text)
     
-    # Prepare data for database connection via subprocess
+    # Prepare the data to be sent to the database connection script via subprocess
     processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     enhancement_status = "Yes" if not is_regular_text(ocr_text) else "No"
+    page_segmentation = determine_psm(ocr_text)
+    print("Page Segmentation Mode:", page_segmentation)
     data = {
         'filename': os.path.basename(image_path),
         'processing_date': processing_date,  
         'tesseract_version': pytesseract.get_tesseract_version(),
         'enhancement_settings': enhancement_status,
-        'page_segmentation': determine_psm(ocr_text),
+        'page_segmentation': page_segmentation,
         'image_file_path': image_path
     }
 
