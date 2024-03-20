@@ -1,15 +1,17 @@
 <?php
 
-$servername = "localhost";
-$username = "partelsandra_ocradmin";
-$password = "qwerty12345qwerty";
-$dbname = "partelsandra_OCR";
+$servername = "localhost"; 
+$username = "ocradmin"; 
+$password = "qwerty"; 
+$dbname = "ocr_image_data"; 
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
 echo "Connected successfully";
+?>
