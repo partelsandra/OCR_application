@@ -36,9 +36,13 @@ foreach ($data_pairs as $pair) {
         case 'enhancement_settings':
             $data['Enhancement_Settings'] = ($value == "Yes") ? 1 : 0;
             break;
-        case 'page_segmentation':
-            $data['Page_Segmentation'] = $value;
-            break;
+            case 'page_segmentation':
+                // If the value doesn't start with '--psm', prepend it
+                if (strpos($value, '--psm') !== 0) {
+                    $value = '--psm ' . $value;
+                }
+                $data['Page_Segmentation'] = $value;
+                break;            
         case 'image_file_path':
             $data['Image_File_Path'] = $value;
             break;
