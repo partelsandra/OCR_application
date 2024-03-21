@@ -118,7 +118,7 @@ def process_image(image_path, output_folder):
     # Prepare the data to be sent to the database connection script via subprocess
     processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     enhancement_status = "Yes" if not is_regular_text(ocr_text) else "No"
-    page_segmentation = determine_psm(ocr_text).split()[1]  # Extracting the numeric value
+    page_segmentation = determine_psm(ocr_text).split()[1] 
     print("Page Segmentation value to be passed to PHP:", page_segmentation)
 
     data = {
@@ -126,17 +126,12 @@ def process_image(image_path, output_folder):
         'processing_date': processing_date,
         'tesseract_version': pytesseract.get_tesseract_version(),
         'enhancement_settings': enhancement_status,
-        'page_segmentation': page_segmentation,  # Assign only the numeric value
+        'page_segmentation': page_segmentation, 
         'image_file_path': image_path
     }
 
-
-
     # Convert data to string for subprocess
     data_str = ' '.join([f"{key}={value}" for key, value in data.items()])
-
-    # Add this line to print the data string before calling subprocess
-    print("Data string to be passed to PHP:", data_str)
 
     # Call the database connection via subprocess
     try:
@@ -147,18 +142,12 @@ def process_image(image_path, output_folder):
                 print("Connected to the database.")
             else:
                 print("Failed to connect to the database.")
-
-            # Check if the received value for 'Page Segmentation' was printed by PHP script
-            for line in process.stdout.split('\n'):
-                if "Received Page Segmentation value:" in line:
-                    print(line)
         else:
             print("Error:", process.stderr)
     except subprocess.TimeoutExpired:
         print("Database connection timed out.")
     except subprocess.CalledProcessError as e:
         print("Error:", e)
-
 
 if __name__ == "__main__":
     input_folder = '../images'

@@ -39,17 +39,11 @@ foreach ($data_pairs as $pair) {
             case 'page_segmentation':
             $data['Page_Segmentation'] = $value; 
             echo "Received Page Segmentation value: $value\n"; 
-            break;
-                    
+            break;      
         case 'image_file_path':
             $data['Image_File_Path'] = $value;
             break;
     }
-}
-
-// Print the received 'page_segmentation' value
-if (isset($data['Page_Segmentation'])) {
-    echo "Received Page Segmentation value in PHP: " . $data['Page_Segmentation'] . "\n";
 }
 
 // Insert data into the database table
