@@ -81,26 +81,26 @@ def process_image(image_path, output_folder):
     image = cv2.imread(image_path)
     
     # Step 1: Initial OCR Without Enhancement
-    print(f"Processing image: {image_path}")
+    #print(f"Processing image: {image_path}")
     ocr_text = pytesseract.image_to_string(image, config=ocr_config)
     
     # Step 2: OCR for Regular Text
     if is_regular_text(ocr_text):
-        print("Regular text detected. Performing OCR without enhancement.")
+        #print("Regular text detected. Performing OCR without enhancement.")
         psm = "--psm 3"
         enhanced_image = image  # No enhancement for regular text
     else:
         # Step 3: Enhancement for Non-Regular Text
-        print("Non-regular text detected. Enhancing image.")
+        #print("Non-regular text detected. Enhancing image.")
         enhanced_image = enhance_image(image)
         ocr_text = pytesseract.image_to_string(enhanced_image, config=ocr_config)
         
         # Step 4: OCR for List or Table
         if is_list(ocr_text) or is_table(ocr_text):
-            print("List or table detected. Performing OCR with enhancement.")
+            #print("List or table detected. Performing OCR with enhancement.")
             psm = determine_psm(ocr_text)
         else:
-            print("Text is neither regular nor in a list or table format. Skipping OCR.")
+            #print("Text is neither regular nor in a list or table format. Skipping OCR.")
             return  
     
     # Apply language and OEM 
@@ -118,29 +118,40 @@ def process_image(image_path, output_folder):
     # Prepare the data to be sent to the database connection script via subprocess
     processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     enhancement_status = "Yes" if not is_regular_text(ocr_text) else "No"
-    page_segmentation = determine_psm(ocr_text)
-    print("Page Segmentation Mode:", page_segmentation)
+    page_segmentation = determine_psm(ocr_text).split()[1]  # Extracting the numeric value
+    print("Page Segmentation value to be passed to PHP:", page_segmentation)
+
     data = {
         'filename': os.path.basename(image_path),
-        'processing_date': processing_date,  
+        'processing_date': processing_date,
         'tesseract_version': pytesseract.get_tesseract_version(),
         'enhancement_settings': enhancement_status,
-        'page_segmentation': page_segmentation,
+        'page_segmentation': page_segmentation,  # Assign only the numeric value
         'image_file_path': image_path
     }
+
+
 
     # Convert data to string for subprocess
     data_str = ' '.join([f"{key}={value}" for key, value in data.items()])
 
+    # Add this line to print the data string before calling subprocess
+    print("Data string to be passed to PHP:", data_str)
+
     # Call the database connection via subprocess
     try:
-        print("Data to be sent to the database:", data)
+        print("Image path:", image_path)
         process = subprocess.run(['php', 'database_connection.php', data_str], capture_output=True, text=True, timeout=10)
         if process.returncode == 0:
             if "Connected successfully" in process.stdout:
                 print("Connected to the database.")
             else:
                 print("Failed to connect to the database.")
+
+            # Check if the received value for 'Page Segmentation' was printed by PHP script
+            for line in process.stdout.split('\n'):
+                if "Received Page Segmentation value:" in line:
+                    print(line)
         else:
             print("Error:", process.stderr)
     except subprocess.TimeoutExpired:
