@@ -34,7 +34,8 @@ foreach ($data_pairs as $pair) {
             $data['Tesseract_Version'] = $value;
             break;
             case 'enhancement_settings':
-            $data['Enhancement_Settings'] = $value; 
+            $data['Enhancement_Settings'] = $value;
+            echo "Received enhancement value: $value\n";  
             break;
             case 'page_segmentation':
             $data['Page_Segmentation'] = $value; 

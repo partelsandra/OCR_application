@@ -115,10 +115,19 @@ def process_image(image_path, output_folder):
     with open(output_path, 'w') as output_file:
         output_file.write(cleaned_text)
     
+    #DATABASE INFO 
     # Prepare the data to be sent to the database connection script via subprocess
     processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    enhancement_status = "Yes" if not is_regular_text(ocr_text) else "No"
-    page_segmentation = determine_psm(ocr_text).split()[1] 
+
+    # Determine if enhancement was applied based on whether the processed image differs from the original
+    enhancement_applied = not np.array_equal(image, enhanced_image)
+
+    # If enhancement was applied, set enhancement status to "Yes", otherwise set it to "No"
+    enhancement_status = "Yes" if enhancement_applied else "No"
+    print("Enhancement value to be passed to PHP:", enhancement_status)
+
+    # Determine page segmentation based on the actual processing result
+    page_segmentation = determine_psm(ocr_text).split()[1]
     print("Page Segmentation value to be passed to PHP:", page_segmentation)
 
     data = {
@@ -148,6 +157,7 @@ def process_image(image_path, output_folder):
         print("Database connection timed out.")
     except subprocess.CalledProcessError as e:
         print("Error:", e)
+
 
 if __name__ == "__main__":
     input_folder = '../images'
