@@ -81,8 +81,11 @@ def process_image(image_path, output_folder):
     image = cv2.imread(image_path)
     
     # Step 1: Initial OCR Without Enhancement
-    #print(f"Processing image: {image_path}")
+    print(f"Processing image: {image_path}")
     ocr_text = pytesseract.image_to_string(image, config=ocr_config)
+
+    # Initialize PSM value
+    psm = None
     
     # Step 2: OCR for Regular Text
     if is_regular_text(ocr_text):
@@ -102,7 +105,7 @@ def process_image(image_path, output_folder):
         else:
             #print("Text is neither regular nor in a list or table format. Skipping OCR.")
             return  
-    
+
     # Apply language and OEM 
     ocr_text = pytesseract.image_to_string(enhanced_image, config=f"{ocr_config} -l est --oem 3")
 
@@ -124,11 +127,13 @@ def process_image(image_path, output_folder):
 
     # If enhancement was applied, set enhancement status to "Yes", otherwise set it to "No"
     enhancement_status = "Yes" if enhancement_applied else "No"
-    print("Enhancement value to be passed to PHP:", enhancement_status)
 
     # Determine page segmentation based on the actual processing result
-    page_segmentation = determine_psm(ocr_text).split()[1]
-    print("Page Segmentation value to be passed to PHP:", page_segmentation)
+    if psm:
+        page_segmentation = psm.split()[1]
+    else:
+        page_segmentation = determine_psm(ocr_text).split()[1]
+
 
     data = {
         'filename': os.path.basename(image_path),
@@ -144,7 +149,6 @@ def process_image(image_path, output_folder):
 
     # Call the database connection via subprocess
     try:
-        print("Image path:", image_path)
         process = subprocess.run(['php', 'database_connection.php', data_str], capture_output=True, text=True, timeout=10)
         if process.returncode == 0:
             if "Connected successfully" in process.stdout:
