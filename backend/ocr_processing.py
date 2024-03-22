@@ -69,13 +69,10 @@ def determine_psm(ocr_text):
 
 
 def process_image(image_path, output_folder):
-    # Directory of the current script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     
-    # Path to config file
     config_file_path = os.path.join(script_dir, 'config', 'tesseract_config.txt')
     
-    # Read  config file
     ocr_config = read_config_file(config_file_path)
     
     image = cv2.imread(image_path)
@@ -119,13 +116,13 @@ def process_image(image_path, output_folder):
         output_file.write(cleaned_text)
     
     #DATABASE INFO 
-    # Prepare the data to be sent to the database connection script via subprocess
+    # Prepare data to be sent to the database 
     processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    # Determine if enhancement was applied based on whether the processed image differs from the original
+    # Enhancement applied whether processed image differs from original
     enhancement_applied = not np.array_equal(image, enhanced_image)
 
-    # If enhancement was applied, set enhancement status to "Yes", otherwise set it to "No"
+    # If enhancement applied, set enhancement status to yes if not no
     enhancement_status = "Yes" if enhancement_applied else "No"
 
     # Determine page segmentation based on the actual processing result
