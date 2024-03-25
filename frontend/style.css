@@ -1,0 +1,179 @@
+/* Body styles */
+body {
+    background: url(used_images_etc/background.jpg) no-repeat fixed center;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.9);
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+}
+
+/* Main Heading */
+.main-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; /* Extra bold */
+}
+
+/* Second Heading */
+.second-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Semi-bold */
+}
+
+/* Regular Text */
+.regular-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500; /* Medium */
+}
+
+/* Transparent background navbar */
+.navbar {
+    background-color: transparent !important;
+    border: none;
+    box-shadow: none;
+}
+/* Navbar text color, font and alignment */
+.navbar-nav .nav-link {
+    color: white;
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Active navbar item line */
+.nav-item::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease; 
+}
+
+
+/* Active navbar item line on hover */
+.nav-item:hover::after,
+.nav-item.active::after {
+    width: 100%; 
+}
+
+/* Image upload and display progress*/
+.image-upload-box {
+    width: 1178px;
+    height: 743px;
+    background-color: rgb(255, 255, 255, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    background-clip: padding-box;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Style for inner boxes */
+.inner-box {
+    position: absolute;
+    border: 2px solid #FFFFFF; 
+    border-radius: 20px;
+}
+
+/* Image uplaod box */
+.upload {
+width: 548px;
+height: 536px;
+left: 5%;
+top: 7%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* Text below icon */
+.second-heading.drop-file {
+    font-size: 18px; 
+    margin-top: 10px; 
+    text-align: center; 
+    position: absolute; 
+    bottom: 80px; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+
+/* Display box*/
+.display {
+    width: 401px;
+    height: 536px;
+    left: 60%;
+    top: 7%;
+}
+
+/* Button */
+.btn {
+    position: absolute;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    text-transform: uppercase;
+    width: 170px;
+    height: 75px;
+    opacity: 0.86;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Style for icon */
+.icon {
+    color: #FFFFFF;
+    transform: scale(10); 
+}
+
+/* Styles for Box 1, 2, and 3 */
+.box {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    background-clip: padding-box;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.box-1 {
+    width: 515.41px;
+    height: 425.32px;
+}
+.box-2 {
+    width: 515.41px;
+    height: 425.32px;
+    margin-right: 60px;
+}
+
+.box-3 {
+    width: 1150.24px;
+    height: 341.51px;
+    margin-top: 20px;
+}
+
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .inner-box {
+        position: relative;
+    }
+    
+    .upload, .display {
+        position: relative;
+        left: auto;
+        top: auto; 
+    }
+}
+
+
+
