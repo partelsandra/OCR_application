@@ -24,5 +24,5 @@ function simulateProgress() {
             progressBar.style.width = width + "%";
             progressBar.setAttribute("aria-valuenow", width);
         }
-    }, 1000); // Change the interval duration (milliseconds) as needed
+    }, 200); 
 }
