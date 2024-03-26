@@ -54,27 +54,28 @@
     </nav>
 
 
-<!-- Image upload and display progress -->
-<div id="image-to-text" class="container">
-    <div class="row">
-        <div class="col-12 image-upload-box">
-            <!-- Image upload -->
-            <div class="inner-box upload">
-                <!-- Icon -->
-                <i class="fa-regular fa-folder fa-lg icon"></i>
-                <!-- Text -->
-                <span class="second-heading drop-file">Drop your file here or browse </span>
-            </div>
-            <!-- File upload process -->
-            <div class="inner-box display">
-                <!-- Icon for uploaded image -->
-                <i id="uploaded-image-icon" class="fa-solid fa-image" style="color: #ffffff;"></i>
-                <!-- Display uploaded image name -->
-                <span id="uploaded-image-name" class="regular-text"></span>
+    <!-- Image upload and display progress -->
+    <div id="image-to-text" class="container">
+        <div class="row">
+            <div class="col-12 image-upload-box">
+                <!-- Image upload -->
+                <div class="inner-box upload">
+                    <!-- Icon -->
+                    <i class="fa-regular fa-folder fa-lg icon"></i>
+                    <!-- Text -->
+                    <span class="second-heading drop-file">Drop your file here or browse </span>
+                </div>
+                <!-- File upload process -->
+                <div class="inner-box display">
+                    <!-- Icon for uploaded image -->
+                    <i id="uploaded-image-icon" class="fa-solid fa-image uploaded-image-icon"></i>
+                    <!-- Display uploaded image name -->
+                    <span id="uploaded-image-name" class="regular-text"></span>
+                </div>
+                <button id="process-button" type="button" class="btn btn-outline-light">Process</button>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- Progress bar container -->
@@ -239,6 +240,9 @@
                                 <br>
                                 <li>Will the information stored in the database be deleted after a certain period?</li>
                                 <p>No, the information stored in our database will remain unless otherwise specified.
+                                </p>
+                                <li>How many files can I process at once?</li>
+                                <p>Only one file can be uploaded and is being processed at a time. Press the button back to process a new file.
                                 </p>
                             </ul>
                         </span>

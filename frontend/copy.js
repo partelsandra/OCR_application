@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     const copyIcon = document.querySelector('.copy-icon');
-    const tooltip = document.querySelector('.tooltip'); // Select the tooltip element
+    const tooltip = document.querySelector('.tooltip'); 
 
     copyIcon.addEventListener('click', function() {
         console.log('Copy icon clicked!');
-        const textBox = this.closest('.text-box'); // Find the closest text box container
+        const textBox = this.closest('.text-box'); 
         console.log('TextBox:', textBox);
         const textToCopy = textBox.querySelector('.regular-text').textContent.trim(); // Get the text to copy
         console.log('Text to copy:', textToCopy);

@@ -98,6 +98,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+/* Add hover effect */
+.upload:hover {
+    background-color: rgba(0, 14, 74, 0.2); 
 }
 
 /* Text below icon */
@@ -111,6 +117,15 @@ body {
     transform: translateX(-50%);
 }
 
+/* Uploaded image icon */
+.uploaded-image-icon {
+    color: #ffffff;
+    position: absolute;
+    top: 20px;
+    left: 20px; 
+    font-size: 40px;
+}
+
 
 /* Display box*/
 .display {
@@ -118,6 +133,11 @@ body {
     height: 536px;
     left: 60%;
     top: 7%;
+}
+
+/* Add dragover effect */
+.display.dragover {
+    background-color: rgba(0, 14, 74, 0.2); 
 }
 
 /* Button */
@@ -176,7 +196,7 @@ body {
 .bigger-box-kkk {
     margin-top: 100px;
     width: 1170px;
-    height: 500px;
+    height: 600px;
 }
 
 /*Text how to use boxes*/
