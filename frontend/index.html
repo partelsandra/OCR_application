@@ -21,12 +21,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
+    <!-- JavaScript file with copy functionality -->
+    <script src="copy.js" defer></script>
+
     <title>OCR application</title>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -41,13 +44,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#how-to-use">How to Use</a>
                     </li>
+                    <!-- New Navbar Item -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kkk">KKK</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!--Image upload and display progress-->
-    <div id="#image-to-text" class="container">
+
+    <!-- Image upload and display progress -->
+    <div id="image-to-text" class="container">
         <div class="row">
             <div class="col-12 image-upload-box">
                 <!-- Image upload -->
@@ -57,46 +65,204 @@
                     <!-- Text -->
                     <span class="second-heading drop-file">Drop your file here or browse </span>
                 </div>
-                <!-- File upload procress -->
+                <!-- File upload process -->
                 <div class="inner-box display"></div>
                 <!-- Text -->
-                <button type="button" class="btn btn-outline-light">Process</button>
+                <button id="process-button" type="button" class="btn btn-outline-light">Process</button>
             </div>
         </div>
     </div>
 
-    <!-- How to use -->
-    <div id="how-to-use" class="container">
-        <div class="row justify-content-center">
-            <!-- How to use? -->
-            <div class="col-lg-4 col-md-6 mt-5">
-                <div class="box box-1">
-                    <!-- Content for Box 1 -->
+    <!-- Progress bar container -->
+    <div id="progress-bar-container" class="container-fluid" style="display: none;">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-12 progress-bar-box">
+                <span class="main-heading drop-file">Performing text recognition</span>
+                <div class="progress">
+                    <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0"
+                        aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
-            <!-- Supported formats -->
-            <div class="col-lg-4 col-md-6 mt-5">
-                <div class="box box-2">
-                    <!-- Content for Box 2 -->
+        </div>
+    </div>
+
+    <!-- OCR result container -->
+    <div id="ocr-result-container" class="container-fluid" style="display: none;">
+        <!-- Your OCR result content here -->
+        <!-- Image box -->
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-md-6">
+                <div class="image-box">
+                    <!-- Placeholder image -->
+                    <img class="img-fluid" src="used_images_etc/erar-0-1_002_0000280_00002_t.jpg"
+                        alt="Placeholder Image">
+                </div>
+            </div>
+            <!-- Text box -->
+            <div class="col-md-6">
+                <div class="text-box" style="overflow-y: auto; position: relative;">
+                    <i class="fa-regular fa-copy copy-icon"></i>
+                    <div class="tooltip" id="tooltip">Copied!</div>
+                    <span class="regular-text">TÖÖARUANNE KARTOTEEGI ALAL.
+
+                        Ls Registreerimise lehti sissetulnud üldse 11.479 nendest
+                        sissetulnud ja väljaläinud reg.lehtede vihku kantud 11.115.
+
+                        .
+
+                        STatistiliste anmete ümbertöötamise kava alusel läbi-
+                        töötatud järgmiselt 11.115 lehte vt. juurelisatud kava.
+
+                        Statistilised tabelid
+                        evakueeritute arv
+                        -ÄO Vanus
+                        -A0- rahvus
+                        -A0 parteilisus
+                        -A0 haridus
+
+                        Tabelid esitatud 11.115 reg.lehe kohta.
+                        Statistilised eritabelid.
+
+                        Andmed obl. reg. lehtede arv rajoonide kaupa
+                        11.115 reg. lehe kohta.
+
+                        )
+                        ) Lõpetatud üldkeskharidusega - 11.115 reg.lehe kohta
+                        tabelid esitatud.
+                        ) Tööjõureservide tabelid 11.115 reg.lehe kohta tehtud.
+
+                        LAE ik rs 21008
+
+                        ) kohta esitatud 11.108 reg. lehe andmed. lehte eral-
+                        di väljavõetud tabelitesse sissekandmäta
+                        kohta tehtud 11.115 lehe kohta andmed esitatud.
+
+                        Õpetajate nimekiri.
+
+                        Tehtud samuti 11.106 lehe kohta .eraldi lehe hulgast
+                        õpeta jad nimekirja veel märkimata.TÖÖARUANNE KARTOTEEGI ALAL.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Three boxes -->
+    <div id="how-to-use" class="container">
+        <div class="row mt-5">
+            <!-- Box 1 -->
+            <div class="col-6">
+                <div class="custom-box smaller-box">
+                    <span class="main-heading tool">How to use</span>
+                    <span class="regular-text">
+                        <ol>
+                            <li>Upload images</li>
+                            <li>Drag and drop Images into the input box
+                                or select images from your local device. </li>
+                            <li>Press process button </li>
+                            <li>Image is being processed </li>
+                            <li>After loading it will display the image and
+                                the extracted text</li>
+                            <li>You can now see the result and copy the text.</li>
+                        </ol>
+                    </span>
+                </div>
+
+            </div>
+            <!-- Box 2 -->
+            <div class="col-6">
+                <div class="custom-box smaller-box">
+                    <span class="main-heading format">Supported file formats </span>
+                    <span class="regular-text">This photo to text converter supports multiple image file formats.
+                        You can upload the images in the following file format to get text from them.
+                        <ul>
+                            <br>
+                            <li>JPG</li>
+                            <li>PNG</li>
+                            <li>JPEG</li>
+                            <li>BMP</li>
+                            <li>TIFF</li>
+                        </ul>
+                    </span>
                 </div>
             </div>
         </div>
         <!-- Box 3 -->
-        <div class="row justify-content-center mt-5">
-            <div class="col-lg-8 col-md-12">
-                <div class="box box-3">
-                    <!-- How converter works? -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="custom-box bigger-box">
+                    <span class="main-heading converter">How does the image to text converter work? </span>
+                    <span class="regular-text">Based on OCR technology, the image to text tool is developed with
+                        advanced libraries and text recognition models. Different patterns of characters are classified
+                        into different prototypes. Commonly, an Image OCR tool performs the following functions: First,
+                        our tool scans and extract text from the Image.Then it does page segmentation and arranges text
+                        according to the image. After the text is fully extracted, our tool performs very light text
+                        corrections to make it more accurate.</span>
                 </div>
             </div>
         </div>
+
+        <div id="kkk" class="container">
+            <!-- Box 4 -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="custom-box bigger-box-kkk">
+                        <span class="main-heading kkk">KKK</span>
+                        <span class="regular-text">
+                            <ul>
+                                <li>What information is stored?
+                                    <ul>
+                                        <li>Filename: The name of the uploaded file.</li>
+                                        <li>Processing Date: The date and time when the image was processed.</li>
+                                        <li>Image File Path: The location of the processed image file.</li>
+                                        <li>Unprocessed File Information: Details of files that could not be processed.
+                                        </li>
+                                        <li>File Size: The size of the uploaded file.</li>
+                                        <li>File Format: The format of the uploaded image file.</li>
+                                        <li>Processing Details:
+                                            <ul>
+                                                <li>Completion Date: The date and time when processing was completed.
+                                                </li>
+                                                <li>Tesseract Version: The OCR engine version used.</li>
+                                                <li>Enhancement Settings: Any applied settings for better processing.
+                                                </li>
+                                                <li>Page Segmentation: Details of page segmentation if applicable.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <br>
+                                <li>Will the information stored in the database be deleted after a certain period?</li>
+                                <p>No, the information stored in our database will remain unless otherwise specified.
+                                </p>
+                            </ul>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-
-
-
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="footer-content">
+                        <p class="second-heading">This is the footer text.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS (required for Bootstrap components like navbar collapse) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Progress bar -->
+    <script src="script.js"></script>
 
 
 </body>
