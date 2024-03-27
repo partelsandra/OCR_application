@@ -5,6 +5,8 @@ import numpy as np
 import re
 import subprocess
 from datetime import datetime
+from PIL import Image
+import math
 
 def read_config_file(file_path):
     with open(file_path, 'r') as config_file:
@@ -67,6 +69,23 @@ def determine_psm(ocr_text):
     else:
         return "--psm 3"
 
+#Convert filesize to readable form
+def convert_bytes_to_human_readable(size_bytes):
+    """
+    Convert bytes to a human-readable format (e.g., KB, MB, GB).
+    """
+    if size_bytes == 0:
+        return "0 bytes"
+
+    # Define the units and their sizes
+    units = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+    exponent = int(math.log(size_bytes, 1024))
+    size = size_bytes / (1024 ** exponent)
+
+    # Format the size
+    formatted_size = f"{size:.2f} {units[exponent]}"
+    return formatted_size
+
 
 def process_image(image_path, output_folder):
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -76,6 +95,8 @@ def process_image(image_path, output_folder):
     ocr_config = read_config_file(config_file_path)
     
     image = cv2.imread(image_path)
+
+    start_time = datetime.now()  # Start time of processing for duration_time
     
     # Step 1: Initial OCR Without Enhancement
     print(f"Processing image: {image_path}")
@@ -86,22 +107,16 @@ def process_image(image_path, output_folder):
     
     # Step 2: OCR for Regular Text
     if is_regular_text(ocr_text):
-        #print("Regular text detected. Performing OCR without enhancement.")
         psm = "--psm 3"
         enhanced_image = image  # No enhancement for regular text
     else:
         # Step 3: Enhancement for Non-Regular Text
-        #print("Non-regular text detected. Enhancing image.")
         enhanced_image = enhance_image(image)
         ocr_text = pytesseract.image_to_string(enhanced_image, config=ocr_config)
         
         # Step 4: OCR for List or Table
         if is_list(ocr_text) or is_table(ocr_text):
-            #print("List or table detected. Performing OCR with enhancement.")
             psm = determine_psm(ocr_text)
-        else:
-            #print("Text is neither regular nor in a list or table format. Skipping OCR.")
-            return  
 
     # Apply language and OEM 
     ocr_text = pytesseract.image_to_string(enhanced_image, config=f"{ocr_config} -l est --oem 3")
@@ -116,8 +131,17 @@ def process_image(image_path, output_folder):
         output_file.write(cleaned_text)
     
     #DATABASE INFO 
-    # Prepare data to be sent to the database 
-    processing_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # Get the wxh of the image
+    image_width, image_height = Image.open(image_path).size
+
+    # Calculate file size
+    file_size = os.path.getsize(image_path)
+
+    # Determine file format
+    file_format = os.path.splitext(image_path)[1].replace('.', '')
+
+    # Prepare data to be sent to the database
+    processing_date = start_time.strftime('%Y-%m-%d %H:%M:%S')
 
     # Enhancement applied whether processed image differs from original
     enhancement_applied = not np.array_equal(image, enhanced_image)
@@ -131,14 +155,32 @@ def process_image(image_path, output_folder):
     else:
         page_segmentation = determine_psm(ocr_text).split()[1]
 
+    # Calculate duration time in sec.
+    end_time = datetime.now()  # End time of processing for duration_time
+    duration_time = (end_time - start_time).total_seconds()
+
+    # Combine wxh for database output
+    image_dimensions = f"{image_width}x{image_height}"
+
+    # Calculate file size and convert to readable format
+    file_size_bytes = os.path.getsize(image_path)
+    file_size = convert_bytes_to_human_readable(file_size_bytes)
+
+    # Calculate duration time in sec
+    end_time = datetime.now()  # End time of processing
+    duration_time = (end_time - start_time).total_seconds()
 
     data = {
         'filename': os.path.basename(image_path),
         'processing_date': processing_date,
+        'image_size': image_dimensions, 
+        'file_size': file_size,
+        'file_format': file_format,
+        'image_file_path': image_path,
         'tesseract_version': pytesseract.get_tesseract_version(),
         'enhancement_settings': enhancement_status,
-        'page_segmentation': page_segmentation, 
-        'image_file_path': image_path
+        'page_segmentation': page_segmentation,
+        'duration_time': duration_time  
     }
 
     # Convert data to string for subprocess
@@ -158,6 +200,8 @@ def process_image(image_path, output_folder):
         print("Database connection timed out.")
     except subprocess.CalledProcessError as e:
         print("Error:", e)
+
+
 
 
 if __name__ == "__main__":

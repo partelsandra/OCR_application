@@ -27,37 +27,71 @@ foreach ($data_pairs as $pair) {
         case 'filename':
             $data['Filename'] = $value;
             break;
-        case 'processing_date':
-            $data['Processing_Date'] = $value;
+        case 'duration_time':
+            $data['Duration_Time'] = $value;
             break;
         case 'tesseract_version':
             $data['Tesseract_Version'] = $value;
             break;
-            case 'enhancement_settings':
+        case 'enhancement_settings':
             $data['Enhancement_Settings'] = $value;
-            echo "Received enhancement value: $value\n";  
             break;
-            case 'page_segmentation':
-            $data['Page_Segmentation'] = $value; 
-            echo "Received Page Segmentation value: $value\n"; 
-            break;      
+        case 'page_segmentation':
+            $data['Page_Segmentation'] = $value;
+            break;
         case 'image_file_path':
             $data['Image_File_Path'] = $value;
+            break;
+        case 'image_size':
+            $data['Image_Size'] = $value;
+            break;
+        case 'file_size':
+            $data['File_Size'] = $value;
+            break;
+        case 'file_format':
+            $data['File_Format'] = $value;
             break;
     }
 }
 
-// Insert data into the database table
-$sql = "INSERT INTO ocr_data (Filename, Processing_Date, Tesseract_Version, Enhancement_Settings, Page_Segmentation, Image_File_Path) VALUES (?, ?, ?, ?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssss", $data['Filename'], $data['Processing_Date'], $data['Tesseract_Version'], $data['Enhancement_Settings'], $data['Page_Segmentation'], $data['Image_File_Path']);
+// Insert data into the appropriate database table based on the available data
+if (isset($data['Image_Size']) && isset($data['File_Size']) && isset($data['File_Format'])) {
+    // Insert into ocr_data table
+    $sql = "INSERT INTO ocr_data (Filename, Processing_Date, Image_File_Path, Image_Size, File_Size, File_Format) VALUES (?, NOW(), ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssss", $data['Filename'], $data['Image_File_Path'], $data['Image_Size'], $data['File_Size'], $data['File_Format']);
 
-if ($stmt->execute()) {
-    echo "Data inserted successfully";
+    if ($stmt->execute()) {
+        echo "Data inserted into ocr_data successfully\n";
+
+        // Fetch the Image_ID of the inserted row
+        $image_id = $stmt->insert_id;
+
+        // Insert into processing_data table using the fetched Image_ID
+        $sql_processing = "INSERT INTO processing_data (Image_ID, Duration_Time, Tesseract_Version, Enhancement_Settings, Page_Segmentation) VALUES (?, ?, ?, ?, ?)";
+        $stmt_processing = $conn->prepare($sql_processing);
+        $stmt_processing->bind_param("iisss", $image_id, $data['Duration_Time'], $data['Tesseract_Version'], $data['Enhancement_Settings'], $data['Page_Segmentation']);
+
+        if ($stmt_processing->execute()) {
+            echo "Data inserted into processing_data successfully\n";
+        } else {
+            echo "Error: " . $sql_processing . "<br>" . $conn->error;
+        }
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    // Insert into processing_data table directly
+    $sql_processing = "INSERT INTO processing_data (Filename, Duration_Time, Tesseract_Version, Enhancement_Settings, Page_Segmentation, Image_File_Path) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt_processing = $conn->prepare($sql_processing);
+    $stmt_processing->bind_param("sissss", $data['Filename'], $data['Duration_Time'], $data['Tesseract_Version'], $data['Enhancement_Settings'], $data['Page_Segmentation'], $data['Image_File_Path']);
+
+    if ($stmt_processing->execute()) {
+        echo "Data inserted into processing_data successfully\n";
+    } else {
+        echo "Error: " . $sql_processing . "<br>" . $conn->error;
+    }
 }
 
 $stmt->close();
 $conn->close();
-
