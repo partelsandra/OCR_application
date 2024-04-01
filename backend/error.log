@@ -321,3 +321,29 @@ INFO:app:File saved successfully
 INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:09:37] "POST /upload HTTP/1.1" 200 -
 INFO:app:File saved successfully
 INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:12:13] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/ocr_processing.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:39:20] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:39:36] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:40:19] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:40:31] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:43:04] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:43:16] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:49:00] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:49:12] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:51:19] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 14:51:37] "POST /process HTTP/1.1" 200 -

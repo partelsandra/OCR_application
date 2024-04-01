@@ -180,7 +180,9 @@ def process_image(image_path, output_folder):
         'tesseract_version': pytesseract.get_tesseract_version(),
         'enhancement_settings': enhancement_status,
         'page_segmentation': page_segmentation,
-        'duration_time': duration_time  
+        'duration_time': duration_time,
+        'ocr_text': cleaned_text,  # Return OCR result
+        'image_url': output_path  # Return URL of processed image
     }
 
     # Convert data to string for subprocess
@@ -201,19 +203,7 @@ def process_image(image_path, output_folder):
     except subprocess.CalledProcessError as e:
         print("Error:", e)
 
+    # Return OCR result and image URL
+    return cleaned_text, output_path
 
 
-
-if __name__ == "__main__":
-    input_folder = '../images'
-    output_folder = '../ocr_results'
-
-    # Sort images like Windows (folder structure wise and not by adding date(ubuntu))
-    image_filenames = sorted(os.listdir(input_folder))
-
-    # Filter image filenames and create image paths
-    image_paths = [os.path.join(input_folder, filename) for filename in image_filenames if filename.endswith(('.jpg', '.png', '.jpeg'))]
-
-    # Process images
-    for image_path in image_paths:
-        process_image(image_path, output_folder)

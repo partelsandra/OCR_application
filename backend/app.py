@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 import logging
 from flask_cors import CORS
+from ocr_processing import process_image
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5500"}})
@@ -44,6 +45,38 @@ def upload_file():
     except Exception as e:
         app.logger.exception('An error occurred during file upload: {}'.format(str(e)))
         return 'An error occurred during file upload', 500
+
+@app.route('/process', methods=['POST'])
+def process_image_endpoint():
+    try:
+        data = request.get_json()
+        filename = data.get('filename')
+
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        output_folder = 'ocr_results'  # Assuming output folder for OCR results
+
+        process_image(image_path, output_folder)
+
+        # Construct image URL dynamically
+        host = request.host_url.rstrip('/')
+        image_url = f'{host}/{app.config["UPLOAD_FOLDER"]}/{filename}'
+
+        # Return OCR result and image URL
+        ocr_result_path = os.path.splitext(filename)[0] + '.txt'
+        ocr_result_url = os.path.join(output_folder, ocr_result_path)
+
+        with open(ocr_result_url, 'r') as ocr_file:
+            ocr_result = ocr_file.read()
+
+        return jsonify({
+            'image_url': image_url,
+            'ocr_result': ocr_result
+        }), 200
+
+
+    except Exception as e:
+        app.logger.exception('An error occurred during OCR processing: {}'.format(str(e)))
+        return 'An error occurred during OCR processing', 500
 
 if __name__ == '__main__':
     app.run(debug=True)
