@@ -59,28 +59,29 @@
         <div class="row">
             <div class="col-12 image-upload-box">
                 <!-- Image upload -->
-                <div class="inner-box upload">
+                <div class="inner-box upload" onclick="document.getElementById('file-input').click()">
                     <!-- Icon -->
                     <i class="fa-regular fa-folder fa-lg icon"></i>
                     <!-- Text -->
                     <span class="second-heading drop-file">Drop your file here or browse </span>
                 </div>
+                <!-- Hidden file input -->
+                <input type="file" id="file-input" style="display: none">
 
                 <!-- File upload process -->
                 <div class="inner-box display">
                     <!-- Icon for uploaded image -->
                     <i id="uploaded-image-icon" class="fa-solid fa-image uploaded-image-icon"
-                        style="display: inline-block !important;"></i>
+                        style="display: none;"></i>
                     <!-- Display uploaded image name -->
-                    <span id="uploaded-image-name" class="regular-text"
-                        style="display: inline-block !important;"></span>
+                    <span id="uploaded-image-name" class="regular-text" style="display: none;"></span>
                 </div>
-
-
                 <button id="process-button" type="button" class="btn btn-outline-light">Process</button>
             </div>
         </div>
     </div>
+
+
 
 
     <!-- Progress bar container -->
