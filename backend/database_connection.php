@@ -59,7 +59,7 @@ if (isset($data['Image_Size']) && isset($data['File_Size']) && isset($data['File
     // Insert into ocr_data table
     $sql = "INSERT INTO ocr_data (Filename, Processing_Date, Image_File_Path, Image_Size, File_Size, File_Format) VALUES (?, NOW(), ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $data['Filename'], $data['Image_File_Path'], $data['Image_Size'], $data['File_Size'], $data['File_Format']);
+    $stmt->bind_param("sssss", $data['Filename'], $data['image_file_path'], $data['Image_Size'], $data['File_Size'], $data['File_Format']);  // Updated image_file_path to match Python
 
     if ($stmt->execute()) {
         echo "Data inserted into ocr_data successfully\n";
@@ -84,7 +84,7 @@ if (isset($data['Image_Size']) && isset($data['File_Size']) && isset($data['File
     // Insert into processing_data table directly
     $sql_processing = "INSERT INTO processing_data (Filename, Duration_Time, Tesseract_Version, Enhancement_Settings, Page_Segmentation, Image_File_Path) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_processing = $conn->prepare($sql_processing);
-    $stmt_processing->bind_param("sissss", $data['Filename'], $data['Duration_Time'], $data['Tesseract_Version'], $data['Enhancement_Settings'], $data['Page_Segmentation'], $data['Image_File_Path']);
+    $stmt_processing->bind_param("sissss", $data['Filename'], $data['Duration_Time'], $data['Tesseract_Version'], $data['Enhancement_Settings'], $data['Page_Segmentation'], $data['image_file_path']);  // Updated image_file_path to match Python
 
     if ($stmt_processing->execute()) {
         echo "Data inserted into processing_data successfully\n";

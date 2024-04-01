@@ -217,4 +217,3 @@ if __name__ == "__main__":
     # Process images
     for image_path in image_paths:
         process_image(image_path, output_folder)
-

@@ -1,0 +1,143 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:app:File saved successfully
+INFO:app:Image processed successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:36:04] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:40:13] "[33mPOST /process HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:40:14] "[33mPOST /process HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:40:15] "[33mPOST /process HTTP/1.1[0m" 404 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:40:20] "[33mPOST /process HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:52:28] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:52:39] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:52:46] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:55:26] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 09:57:10] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/ocr_processing.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:05:18] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:09:29] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:10:11] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:11:01] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:15:38] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:21:12] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:22:41] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:25:11] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:25:31] "[33mPOST /process HTTP/1.1[0m" 404 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:27:04] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:30:02] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:30:43] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:30:49] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:31:19] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:32:01] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:32:04] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:32:08] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:33:35] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:33:38] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:33:54] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:33:56] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:33:59] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:35:17] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:35:20] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:36:02] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:37:05] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:37:09] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:37:24] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:37:57] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:38:34] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:38:59] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:41:03] "[33mPOST /process HTTP/1.1[0m" 404 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:41:23] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:41:46] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:46:55] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:46:58] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:52:27] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:52:30] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:55:22] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 10:55:39] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 12:02:24] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 12:02:30] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 12:04:04] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 12:10:36] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 12:15:29] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 12:24:53] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 12:24:58] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 13:13:07] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 13:13:10] "POST /upload HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2024 13:13:19] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 327-689-961

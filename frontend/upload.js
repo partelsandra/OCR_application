@@ -1,48 +1,80 @@
-// Function to handle file upload
-function handleFileUpload(files) {
-    const file = files[0]; // Assuming only one file is selected
-    const fileName = file.name; // Get the name of the uploaded file
+// Adjusted handleFileUpload function to accept event and files parameters
+function handleFileUpload(event, files) {
+    const file = files[0]; 
 
-    // Display the uploaded file name in the designated box
-    const uploadedImageName = document.getElementById('uploaded-image-name');
-    uploadedImageName.textContent = fileName;
+    const formData = new FormData();
+    formData.append('file', file);
 
-    // Show the image icon
-    const uploadedImageIcon = document.getElementById('uploaded-image-icon');
-    uploadedImageIcon.style.display = 'inline-block';
+    console.log("File selected:", file.name); 
+
+    fetch('http://127.0.0.1:5000/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data); 
+        if (data && data.success) {
+            const uploadedImageName = document.getElementById("uploaded-image-name");
+            uploadedImageName.textContent = file.name;
+
+            const uploadedImageIcon = document.getElementById("uploaded-image-icon");
+            uploadedImageIcon.style.display = 'inline';
+        } else {
+            console.error('Error uploading file');
+        }
+    })
+    .catch(error => {
+        console.error('Error uploading file:', error);
+    });
 }
-
-// Function to handle file drop
-function handleFileDrop(event) {
-    event.preventDefault(); // Prevent default behavior of dropping files
-    const files = event.dataTransfer.files; // Get the dropped files
-    handleFileUpload(files); // Handle the uploaded files
-}
-
-// Add event listener for file drop
-const uploadBox = document.querySelector('.upload');
-uploadBox.addEventListener('dragover', event => {
-    event.preventDefault(); // Prevent default behavior of dragging over
-});
-uploadBox.addEventListener('drop', handleFileDrop); // Handle file drop
 
 // Function to handle file selection from browse window
 function handleFileSelection(event) {
-    const files = event.target.files; // Get the selected files
-    handleFileUpload(files); // Handle the selected files
+    const files = event.target.files; 
+    handleFileUpload(event, files); 
 }
+
+// Ocr processing
+// if (data && data.ocr_result) {
+//     const ocrResultContainer = document.getElementById("ocr-result-container");
+//     const ocrResultText = document.querySelector(".text-box .regular-text");
+//     ocrResultText.textContent = data.ocr_result;
+//     document.getElementById("progress-bar-container").style.display = "none";
+//     ocrResultContainer.style.display = "block";
+// } else {
+//     console.error('Error: No OCR result received from the backend');
+// }
+
+
+// Handle file drop
+function handleFileDrop(event) {
+    event.preventDefault(); 
+    const files = event.dataTransfer.files; 
+    handleFileUpload(event, files); 
+}
+
+const uploadBox = document.querySelector('.upload');
+uploadBox.addEventListener('dragover', event => {
+    event.preventDefault();
+});
+uploadBox.addEventListener('drop', handleFileDrop);
 
 // Create file input element for browsing files
 const fileInput = document.createElement('input');
 fileInput.setAttribute('type', 'file');
 fileInput.setAttribute('accept', 'image/*');
 fileInput.style.display = 'none';
-fileInput.addEventListener('change', handleFileSelection); // Handle file selection
-document.body.appendChild(fileInput); // Append file input element to the body
+fileInput.addEventListener('change', handleFileSelection);
+document.body.appendChild(fileInput);
 
-// Add event listener for click on upload box
 uploadBox.addEventListener('click', () => {
-    fileInput.click(); // Open file input dialog when upload box is clicked
+    fileInput.click();
 });
 
 // Event listener for process button
