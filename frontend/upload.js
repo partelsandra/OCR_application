@@ -1,12 +1,14 @@
 // Function to handle file selection from browse window
 function handleFileSelection(event) {
     const files = event.target.files; 
+    console.log("Files selected:", files); // Add debugging
     handleFileUpload(files); 
 }
 
 // Function to handle file upload
 function handleFileUpload(files) {
     const file = files[0]; // Assuming only one file is selected
+    console.log("File to upload:", file); // Add debugging
 
     // Update uploaded file details on the screen
     updateUploadedFile(file);
@@ -26,6 +28,7 @@ function updateUploadedFile(file) {
 function handleFileDrop(event) {
     event.preventDefault(); 
     const files = event.dataTransfer.files; 
+    console.log("Files dropped:", files);
     handleFileUpload(files); 
 }
 
@@ -46,34 +49,33 @@ document.getElementById("process-button").addEventListener("click", function() {
         // Show loading screen
         document.getElementById("progress-bar-container").style.display = "block";
 
-        // Send request to trigger OCR processing
-        fetch('http://127.0.0.1:5000/process', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ filename: fileName }) // Send filename to backend
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to trigger OCR processing');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Hide loading screen
-            document.getElementById("progress-bar-container").style.display = "none";
+        // Create a new XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
 
-            // Display OCR result
-            displayOCRResult(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        // Configure the request
+        xhr.open('POST', 'http://127.0.0.1:5000/process');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // Define the request callback
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Hide loading screen
+                document.getElementById("progress-bar-container").style.display = "none";
+
+                // Display OCR result
+                displayOCRResult(JSON.parse(xhr.responseText));
+            } else {
+                console.error('Failed to trigger OCR processing');
+            }
+        };
+
+        // Send the request with the filename as JSON payload
+        xhr.send(JSON.stringify({ filename: fileName }));
     } else {
         console.error('Error: No file uploaded');
     }
 });
+
 
 // Function to display OCR result
 function displayOCRResult(data) {
@@ -86,6 +88,7 @@ function displayOCRResult(data) {
     ocrResultText.textContent = data.ocr_result;
 
     // Show OCR result container
+    console.log("Showing OCR result container"); // Add debugging
     document.getElementById("ocr-result-container").style.display = "block";
 }
 
