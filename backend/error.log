@@ -389,3 +389,50 @@ WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 357-430-282
 INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:05:21] "OPTIONS /process HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:05:38] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:14:59] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:15:11] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:20:31] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:20:44] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:24:10] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:24:10] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 357-430-282
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:31:57] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:31:57] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:32:09] "POST /process HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:33:44] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:33:44] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:33:57] "POST /process HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:36:03] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:36:03] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:36:14] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:37:43] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:37:54] "[31m[1mGET /process HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:37:59] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 357-430-282
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:46:16] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:46:16] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:46:28] "POST /process HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/sandra/Desktop/OCR_application/backend/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 357-430-282
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:50:19] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:50:19] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:50:34] "POST /process HTTP/1.1" 200 -
+INFO:app:File saved successfully
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:53:58] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:53:58] "OPTIONS /process HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Apr/2024 10:54:14] "POST /process HTTP/1.1" 200 -

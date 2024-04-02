@@ -53,11 +53,11 @@ def process_image_endpoint():
         filename = data.get('filename')
 
         image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        output_folder = 'ocr_results'  # Assuming output folder for OCR results
+        output_folder = 'ocr_results'  
 
         process_image(image_path, output_folder)
 
-        # Construct image URL dynamically
+        # Construct image URL 
         host = request.host_url.rstrip('/')
         image_url = f'{host}/{app.config["UPLOAD_FOLDER"]}/{filename}'
 
