@@ -184,7 +184,7 @@ def process_image(image_path, output_folder):
         'page_segmentation': page_segmentation,
         'duration_time': duration_time,
         'ocr_text': cleaned_text,  
-        'image_url': output_relative_path
+        'image_url': image_path
     }
 
     # Convert data to string for subprocess

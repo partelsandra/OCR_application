@@ -47,7 +47,6 @@ document.getElementById("process-button").addEventListener("click", function () 
         processImage(fileName);
     }
 
-    return false;
 });
 
 function processImage(fileName) {
