@@ -129,6 +129,9 @@ def process_image(image_path, output_folder):
     output_path = os.path.join(output_folder, output_filename)
     with open(output_path, 'w') as output_file:
         output_file.write(cleaned_text)
+
+    # Construct relative path to the processed image file
+    output_relative_path = os.path.relpath(output_path, script_dir)    
     
     #DATABASE INFO 
     # Get the wxh of the image
@@ -176,13 +179,12 @@ def process_image(image_path, output_folder):
         'image_size': image_dimensions, 
         'file_size': file_size,
         'file_format': file_format,
-        'image_file_path': image_path,
         'tesseract_version': pytesseract.get_tesseract_version(),
         'enhancement_settings': enhancement_status,
         'page_segmentation': page_segmentation,
         'duration_time': duration_time,
-        'ocr_text': cleaned_text,  # Return OCR result
-        'image_url': output_path  # Return URL of processed image
+        'ocr_text': cleaned_text,  
+        'image_url': output_relative_path
     }
 
     # Convert data to string for subprocess

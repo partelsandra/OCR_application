@@ -1,9 +1,10 @@
-import os
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
+import os
 import logging
 from flask_cors import CORS
 from ocr_processing import process_image
+import threading
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5500"}})
@@ -46,37 +47,46 @@ def upload_file():
         app.logger.exception('An error occurred during file upload: {}'.format(str(e)))
         return 'An error occurred during file upload', 500
 
+ocr_result = None
+
 @app.route('/process', methods=['POST'])
-def process_image_endpoint():
+def process_image_request():
     try:
-        data = request.get_json()
-        filename = data.get('filename')
+        if 'filename' not in request.json:
+            return jsonify({'error': 'Filename not provided'}), 400
 
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        output_folder = 'ocr_results'  
+        filename = request.json['filename']
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-        process_image(image_path, output_folder)
+        # Process the image in a separate thread
+        threading.Thread(target=process_image_async, args=(file_path,)).start()
 
-        # Construct image URL 
-        host = request.host_url.rstrip('/')
-        image_url = f'{host}/{app.config["UPLOAD_FOLDER"]}/{filename}'
-
-        # Return OCR result and image URL
-        ocr_result_path = os.path.splitext(filename)[0] + '.txt'
-        ocr_result_url = os.path.join(output_folder, ocr_result_path)
-
-        with open(ocr_result_url, 'r') as ocr_file:
-            ocr_result = ocr_file.read()
-
-        return jsonify({
-            'image_url': image_url,
-            'ocr_result': ocr_result
-        }), 200
-
-
+        return jsonify({'status': 'processing'}), 200
     except Exception as e:
-        app.logger.exception('An error occurred during OCR processing: {}'.format(str(e)))
-        return 'An error occurred during OCR processing', 500
+        app.logger.exception('An error occurred during image processing: {}'.format(str(e)))
+        return jsonify({'error': 'An error occurred during image processing'}), 500
+
+def process_image_async(file_path):
+    global ocr_result
+    ocr_result = process_image(file_path, app.config['UPLOAD_FOLDER'])
+
+@app.route('/ocr_status', methods=['POST'])
+def ocr_status():
+    global ocr_result
+    try:
+        if ocr_result:
+            return jsonify({
+                'status': 'complete',
+                'ocr_result': ocr_result
+            }), 200
+        else:
+            return jsonify({
+                'status': 'processing'
+            }), 200
+    except Exception as e:
+        return jsonify({
+            'error': str(e)
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
